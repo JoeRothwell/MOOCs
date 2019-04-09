@@ -1,0 +1,4 @@
+83.5  : 573 : Legolas
+94.2  : 497 : Aragorn
+36.9  : 063 : Gimli
+76.1  : 40  : Aragorn

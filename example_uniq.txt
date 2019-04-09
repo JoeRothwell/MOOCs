@@ -1,0 +1,9 @@
+dwarf
+elf
+hobbit
+hobbit
+hobbit
+hobbit
+maia
+man
+man
