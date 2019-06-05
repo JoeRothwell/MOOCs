@@ -41,7 +41,27 @@ ls *.csv
 ls *01.*
 
 
+# Week 3
+# Make file in nano and run
+bash math.sh
+bash bigmath.sh
 
+# Assign a variable and print
+chapter_number=5
+echo $chapter_number
+let chapter_number=$chapter_number+1
+the_empire_state="New York"
+echo $the_empire_state
 
+# Store result of command in a variable
+math_lines=$(cat math.sh | wc -l)
+echo $math_lines
 
+# Variable names can be used inside strings
+echo "I went to school in $the_empire_state"
 
+# Bash program vars.sh that takes arguments
+bash vars.sh
+bash vars.sh red
+bash vars.sh red blue
+bash vars.sh red blue green
