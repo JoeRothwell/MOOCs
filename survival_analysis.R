@@ -59,3 +59,14 @@ prior_dnas <- g$prior_dnas
 cox <- coxph(Surv(fu_time, death) ~ age + gender + copd + prior_dnas + ethnicgroup)
 
 summary(cox)
+
+# another model
+table(g$quintile)
+quintile <- factor(g$quintile)
+cox <- coxph(Surv(fu_time, death) ~ age + gender + copd + quintile + ethnicgroup)
+summary(cox)
+
+# Model does not converge. Why? The SEs are huge.
+# A small category for unknown has been introduced, quintile 0. In addition it is the 
+# reference category. No one died in this category.
+
