@@ -27,3 +27,22 @@ auroc(plsda.res, roc.comp = 3)
 
 plotLoadings(plsda.res, comp = 3, title = 'Loadings on comp 3', 
              contrib = 'max', method = 'mean', ndisplay = 50)
+
+# With caret
+library(caret)
+# Compile cross-validation settings
+set.seed(100)
+# Outcome needs to be factor
+dat$class <- as.factor(dat$class)
+myfolds <- createMultiFolds(dat$class, k = 5, times = 10)
+control <- trainControl("repeatedcv", index = myfolds, selectionFunction = "oneSE")
+        
+# Train PLS model
+mod1 <- train(class ~ ., data = dat,
+              method = "pls",
+              metric = "Accuracy",
+              tuneLength = 20,
+              trControl = control)  
+        
+plot(mod1) 
+plot(varImp(mod1), 10, main = "PLS-DA")  
