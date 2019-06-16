@@ -29,6 +29,7 @@ plotLoadings(plsda.res, comp = 3, title = 'Loadings on comp 3',
              contrib = 'max', method = 'mean', ndisplay = 50)
 
 # With caret
+# See https://poissonisfish.wordpress.com/2017/06/17/partial-least-squares-in-r/
 library(caret)
 # Compile cross-validation settings
 set.seed(100)
@@ -37,12 +38,19 @@ dat$class <- as.factor(dat$class)
 myfolds <- createMultiFolds(dat$class, k = 5, times = 10)
 control <- trainControl("repeatedcv", index = myfolds, selectionFunction = "oneSE")
         
-# Train PLS model
+# Train PLS model. Performs models from 1-20 components and selects best model
 mod1 <- train(class ~ ., data = dat,
               method = "pls",
-              metric = "Accuracy",
+              metric = "Accuracy", # because is classification
               tuneLength = 20,
               trControl = control)  
         
+mod1
+# get summary
 plot(mod1) 
 plot(varImp(mod1), 10, main = "PLS-DA")  
+
+# Extract and plot scores LV1 vs LV2
+pls.scores <- as.matrix(mod1$finalModel[[2]])
+plot(pls.scores[, 1], pls.scores[, 2], col = dat$class, pch  = 19,
+     xlab = "LV1", ylab = "LV2")
