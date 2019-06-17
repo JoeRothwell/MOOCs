@@ -28,3 +28,45 @@ plot(km_age_fit)
 survdiff(Surv(fu_time, death) ~ age_cat, rho=0) 
 
 # Week 2 - the Cox model
+library(survminer)
+cox <- coxph(Surv(fu_time, death) ~ ethnicgroup, data = g) # take variables straight from g
+summary(cox)
+# Ethnic group needs to be a factor, otherwise will be treated as a continuous variable
+
+ethnicgroup <- factor(g[,"ethnicgroup"]) # can also use “as.factor” rather than “factor”
+ethnicgroup <- fct_explicit_na(ethnicgroup, na_level = "8")
+fu_time <- g[,"fu_time"]
+death <- g[,"death"]
+
+cox <- coxph(Surv(fu_time, death) ~ ethnicgroup)
+summary(cox)
+
+# Week 3 - the multiple Cox model
+
+summary(g$age)
+t <- table(g$gender)
+addmargins(t)
+
+table(g$prior_dnas)
+table(g$ethnicgroup)
+table(g$copd)
+
+gender <- factor(g$gender)
+age <- g$age
+copd <- factor(g$copd)
+prior_dnas <- g$prior_dnas
+
+cox <- coxph(Surv(fu_time, death) ~ age + gender + copd + prior_dnas + ethnicgroup)
+
+summary(cox)
+
+# another model
+table(g$quintile)
+quintile <- factor(g$quintile)
+cox <- coxph(Surv(fu_time, death) ~ age + gender + copd + quintile + ethnicgroup)
+summary(cox)
+
+# Model does not converge. Why? The SEs are huge.
+# A small category for unknown has been introduced, quintile 0. In addition it is the 
+# reference category. No one died in this category.
+
