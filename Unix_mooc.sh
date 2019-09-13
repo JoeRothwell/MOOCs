@@ -7,6 +7,8 @@ cd ~/
 
 # make a directory
 mkdir folder
+# not in course: make a directory inside another
+mkdir -p outer/inner
 
 # make a new file
 touch journal-2017-01-24.txt
