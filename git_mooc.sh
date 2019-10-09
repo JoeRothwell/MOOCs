@@ -38,6 +38,7 @@ git status
 # See commit details
 git log
 git log --oneline
+git log --pretty=oneline
 
 # Clone a remote repository
 git clone https://bitbucket.org/atlassian_tutorial/helloworld.git
@@ -75,5 +76,8 @@ git push -u origin master
 # Rename a file (then stage and commit as usual)
 git mv file.txt file_rename.txt
 
+# Tag a commit for a version number. Must be pushed seperately
+git tag -a v0.1 58d45f -m "First release"
+git push origin v0.1
 
 
