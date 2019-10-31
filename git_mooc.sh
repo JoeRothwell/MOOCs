@@ -81,3 +81,23 @@ git tag -a v0.1 58d45f -m "First release"
 git push origin v0.1
 
 
+# MOOC week 2 Merging
+# Perform a fast-forward merge
+git branch feature2
+git checkout feature2
+echo "feature 2" >> fileA.txt
+git commit fileA.txt -m "add feature 2"
+
+# View commit graph and merge into master branch
+git log --oneline --graph --all
+# Change back to master branch, merge, delete feature2 branch label
+git checkout master
+git merge feature2
+git branch -d feature2
+# Note: the resulting commit history is linear
+
+# Perform a merge commit (first do as above to add branch and feature 3)
+git merge --no-ff feature3
+# Delete the branch label as before.
+git branch -d feature3
+
