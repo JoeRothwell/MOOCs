@@ -101,3 +101,27 @@ git merge --no-ff feature3
 # Delete the branch label as before.
 git branch -d feature3
 
+# Week 3 branching and merging
+git clone https://joerothwell@bitbucket.org/joerothwell/projectb.git
+
+# Make a new local repo with a text file with feature 1
+mkdir projectd
+git init
+echo "feature 1" > fileA.txt
+git add .
+git commit -m "add feature 1"
+
+# Make a new branch with feature 2
+git branch feature2
+git checkout feature2
+echo "feature 2" >> fileA.txt
+git add .
+git commit -m "add feature 2"
+git checkout master
+echo "feature 3" >> fileA.txt
+# You can add and commit in one command
+git commit -a -m "add feature 3"
+
+git merge feature2
+# The branches contain a merge conflict!
+
