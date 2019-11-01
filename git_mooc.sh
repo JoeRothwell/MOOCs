@@ -31,7 +31,7 @@ echo "*.dta" >> .gitignore
 echo "*.svg" >> .gitignore
 echo "*.rds" >> .gitignore
 
-#Commit to a local repository
+# Commit to a local repository
 git commit -m "add fileA.txt"
 git status
 
@@ -101,3 +101,38 @@ git merge --no-ff feature3
 # Delete the branch label as before.
 git branch -d feature3
 
+# Week 3 branching and merging
+git clone https://joerothwell@bitbucket.org/joerothwell/projectb.git
+
+# Make a new local repo with a text file with feature 1
+mkdir projectd
+git init
+echo "feature 1" > fileA.txt
+git add .
+git commit -m "add feature 1"
+
+# Make a new branch with feature 2
+git branch feature2
+git checkout feature2
+echo "feature 2" >> fileA.txt
+git add .
+git commit -m "add feature 2"
+git checkout master
+echo "feature 3" >> fileA.txt
+# You can add and commit in one command
+git commit -a -m "add feature 3"
+
+git merge feature2
+# The branches contain a merge conflict!
+git status
+cat fileA.txt
+git merge --abort
+git merge feature2
+# Open nano, fix file to have the 3 features and remove conflict markers
+git add fileA.txt
+git commit -m "Fixed conflict including the 3 features"
+git branch -d feature2
+
+# Push to a remote repository (to see what it looks like)
+git remote add origin https://joerothwell@bitbucket.org/joerothwell/projectd.git
+git push -u origin master
