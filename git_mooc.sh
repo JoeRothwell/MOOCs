@@ -147,3 +147,21 @@ git commit -a -m "add fun line to README.md"
 git log --all --oneline --graph
 git log
 git status
+
+# Fetch, pull, push
+# Create new repo projectf and commit README. Clone as above
+# Add another line in BitBucket and commit. Now do
+git fetch
+git log --all --oneline --graph
+# tracking branch is ahead of master.
+git pull
+# Now synchronised.
+# Now adding and committing fileA to remote.
+# Making minor edit to readme at remote
+git fetch
+git log --all --oneline --graph
+git push
+# Rejected: fileA cannot be pushed because commit made on master
+# Merge commit is needed 
+git pull
+git push # Bring tracking branch up to date
