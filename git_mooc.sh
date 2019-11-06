@@ -137,3 +137,13 @@ git branch -d feature2
 git remote add origin https://joerothwell@bitbucket.org/joerothwell/projectd.git
 git push -u origin master
 
+# Tracking branches
+# Created a new repo in BitBucket and commit a README. Then clone
+git clone https://joerothwell@bitbucket.org/joerothwell/projecte.git
+git branch --all
+git log --all --oneline --graph
+# Added a new line to the README, commit
+git commit -a -m "add fun line to README.md"
+git log --all --oneline --graph
+git log
+git status
