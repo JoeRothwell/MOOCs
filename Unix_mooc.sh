@@ -22,7 +22,7 @@ wc Documents/A-tale-of-two-cities.txt
 # less for viewing text files
 less A-tale-of-two-cities.txt
 
-#redirection
+# redirection
 echo "I'm in the terminal"
 echo "I'm in the file" > echoout.txt
 echo "I've been appended" >> echoout.txt
@@ -41,6 +41,35 @@ cp echoout.txt Desktop
 ls 2017*
 ls *.csv
 ls *01.*
+
+# Regular expressions: grep
+grep "New" states.txt
+grep "nia" states.txt
+
+# Metacharacters with egrep. Dot represents any character
+# plus sign is a quantifer representing more than one occurrence
+egrep "i.g" states.txt
+egrep "s+as" states.txt
+egrep "s*as" states.txt
+# Exact quantity of an expression: 2 or 3 adjacent Ss
+egrep "s{2,3}" states.txt
+egrep "(iss){2}"
+egrep "(i.{2}){3}" states.txt
+
+# All word, all number, all space characters. Capital letter for inverse
+egrep "\w" small.txt
+egrep "\d" small.txt
+egrep "\s" small.txt
+
+# Complement
+egrep -v "\w" small.txt
+
+# Character specific sets
+egrep "[aeiou]" small.txt # contain ANY of these
+egrep "[^aeiou]" small.txt # Don't contain ANY of these
+
+
+
 
 
 # Week 3
