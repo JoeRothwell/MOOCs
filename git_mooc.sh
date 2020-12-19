@@ -31,13 +31,14 @@ echo "*.dta" >> .gitignore
 echo "*.svg" >> .gitignore
 echo "*.rds" >> .gitignore
 
-#Commit to a local repository
+# Commit to a local repository
 git commit -m "add fileA.txt"
 git status
 
 # See commit details
 git log
 git log --oneline
+git log --pretty=oneline
 
 # Clone a remote repository
 git clone https://bitbucket.org/atlassian_tutorial/helloworld.git
@@ -75,5 +76,92 @@ git push -u origin master
 # Rename a file (then stage and commit as usual)
 git mv file.txt file_rename.txt
 
+# Tag a commit for a version number. Must be pushed seperately
+git tag -a v0.1 58d45f -m "First release"
+git push origin v0.1
 
 
+# MOOC week 2 Merging
+# Perform a fast-forward merge
+git branch feature2
+git checkout feature2
+echo "feature 2" >> fileA.txt
+git commit fileA.txt -m "add feature 2"
+
+# View commit graph and merge into master branch
+git log --oneline --graph --all
+# Change back to master branch, merge, delete feature2 branch label
+git checkout master
+git merge feature2
+git branch -d feature2
+# Note: the resulting commit history is linear
+
+# Perform a merge commit (first do as above to add branch and feature 3)
+git merge --no-ff feature3
+# Delete the branch label as before.
+git branch -d feature3
+
+# Week 3 branching and merging
+git clone https://joerothwell@bitbucket.org/joerothwell/projectb.git
+
+# Make a new local repo with a text file with feature 1
+mkdir projectd
+git init
+echo "feature 1" > fileA.txt
+git add .
+git commit -m "add feature 1"
+
+# Make a new branch with feature 2
+git branch feature2
+git checkout feature2
+echo "feature 2" >> fileA.txt
+git add .
+git commit -m "add feature 2"
+git checkout master
+echo "feature 3" >> fileA.txt
+# You can add and commit in one command
+git commit -a -m "add feature 3"
+
+git merge feature2
+# The branches contain a merge conflict!
+git status
+cat fileA.txt
+git merge --abort
+git merge feature2
+# Open nano, fix file to have the 3 features and remove conflict markers
+git add fileA.txt
+git commit -m "Fixed conflict including the 3 features"
+git branch -d feature2
+
+# Push to a remote repository (to see what it looks like)
+git remote add origin https://joerothwell@bitbucket.org/joerothwell/projectd.git
+git push -u origin master
+
+# Tracking branches
+# Created a new repo in BitBucket and commit a README. Then clone
+git clone https://joerothwell@bitbucket.org/joerothwell/projecte.git
+git branch --all
+git log --all --oneline --graph
+# Added a new line to the README, commit
+git commit -a -m "add fun line to README.md"
+git log --all --oneline --graph
+git log
+git status
+
+# Fetch, pull, push
+# Create new repo projectf and commit README. Clone as above
+# Add another line in BitBucket and commit. Now do
+git fetch
+git log --all --oneline --graph
+# tracking branch is ahead of master.
+git pull
+# Now synchronised.
+# Now adding and committing fileA to remote.
+# Making minor edit to readme at remote
+git fetch
+git log --all --oneline --graph
+git push
+# Rejected: fileA cannot be pushed because commit made on master
+# Merge commit is needed 
+git pull
+git push # Bring tracking branch up to date
