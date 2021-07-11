@@ -76,6 +76,9 @@ git push -u origin master
 # Rename a file (then stage and commit as usual)
 git mv file.txt file_rename.txt
 
+# Remove a file from version control
+git rm --cached
+
 # Tag a commit for a version number. Must be pushed seperately
 git tag -a v0.1 58d45f -m "First release"
 git push origin v0.1

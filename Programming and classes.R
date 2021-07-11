@@ -16,7 +16,7 @@ lmout
 unclass(lmout)
 # you get all the details because print.lm is concise
 
-# See all implementatiosn of a generic method
+# See all implementations of a generic method
 methods(print)
 
 
