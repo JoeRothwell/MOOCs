@@ -6,6 +6,11 @@ git help
 git config user.name
 git config user.email
 
+# UPDATE From August 2021, a personal access token is now needed. This is generated from 
+# github.com in settings and developer settings
+# Package gitcreds:: or credentials:: is used to update the authentication in RStudio
+# Function gitcreds_set
+
 # Create a local repository
 pwd
 mkdir repos
