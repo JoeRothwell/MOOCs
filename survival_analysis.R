@@ -1,10 +1,10 @@
+# Survival analysis in R for Public Health 
 g <- read.csv("simulated HF mort data for GMPH (1K) final.csv")
-
 library(survival)
 library(ggplot2)
 library(tidyverse)
 
-# Week 1 - survival function
+# Week 1 - survival function. Get variables
 gender <- as.factor(g[, "gender"]) # R calls categorical variables factors
 fu_time <- g[, "fu_time"] # continuous variable (numeric) 
 death <- g[, "death"] # binary variable (numeric)
@@ -12,6 +12,7 @@ death <- g[, "death"] # binary variable (numeric)
 # Make survival object, follow up time for right-censored data, fit Kaplan-Meier
 km_fit <- survfit(Surv(fu_time, death) ~ 1)
 plot(km_fit)
+
 # Get probabilities at time t
 summary(km_fit, times = c(1:7,30,60,90*(1:10))) 
 
@@ -31,8 +32,8 @@ survdiff(Surv(fu_time, death) ~ age_cat, rho=0)
 library(survminer)
 cox <- coxph(Surv(fu_time, death) ~ ethnicgroup, data = g) # take variables straight from g
 summary(cox)
-# Ethnic group needs to be a factor, otherwise will be treated as a continuous variable
 
+# Ethnic group needs to be a factor, otherwise will be treated as a continuous variable
 ethnicgroup <- factor(g[,"ethnicgroup"]) # can also use “as.factor” rather than “factor”
 ethnicgroup <- fct_explicit_na(ethnicgroup, na_level = "8")
 fu_time <- g[,"fu_time"]
@@ -56,8 +57,8 @@ age <- g$age
 copd <- factor(g$copd)
 prior_dnas <- g$prior_dnas
 
+# Fit model
 cox <- coxph(Surv(fu_time, death) ~ age + gender + copd + prior_dnas + ethnicgroup)
-
 summary(cox)
 
 # another model
